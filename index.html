@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>التحقق</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .box {
+            background-color: rgba(0,0,0,0.4);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #000;
+            animation: fadeIn 2s;
+        }
+        input {
+            padding: 10px;
+            font-size: 18px;
+            margin-top: 15px;
+            width: 100px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>أدخل الرقم التالي للمتابعة</h2>
+        <div id="captcha" style="font-size: 24px; font-weight: bold;"></div>
+        <input type="text" id="userInput" placeholder="أدخل الرقم">
+        <button onclick="verify()">تحقق</button>
+        <p id="error" style="color: red;"></p>
+    </div>
+
+    <script>
+        let generated;
+        function generateCaptcha() {
+            generated = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById("captcha").innerText = generated;
+        }
+        function verify() {
+            const input = document.getElementById("userInput").value;
+            if (input == generated) {
+                window.location.href = "home.html";
+            } else {
+                document.getElementById("error").innerText = "رقم غير صحيح، حاول مرة أخرى";
+                generateCaptcha();
+            }
+        }
+        generateCaptcha();
+    </script>
+</body>
+</html>
